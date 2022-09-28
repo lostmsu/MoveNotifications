@@ -44,7 +44,9 @@ public partial class MoveNotificationsApp : Application {
                     if (!MoveNotificationWindow(notification)) break;
                     if (!MoveActionCenter(actionCenter)) break;
                 }
-            } catch (WindowNotFoundException) { }
+            } catch (WindowNotFoundException) {
+                break;
+            }
         }
     }
 
