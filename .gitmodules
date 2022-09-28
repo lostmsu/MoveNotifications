@@ -1,0 +1,6 @@
+[submodule "External/EventHook"]
+	path = External/EventHook
+	url = https://github.com/losttech/Windows-User-Action-Hook.git
+[submodule "External/WindowManagement.Win32"]
+	path = External/WindowManagement.Win32
+	url = https://losttech.visualstudio.com/DefaultCollection/Stack/_git/WindowManagement.Win32
