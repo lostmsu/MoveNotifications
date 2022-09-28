@@ -11,6 +11,8 @@ using Microsoft.Win32;
 
 using PInvoke;
 
+using Windows.UI.Notifications;
+
 using Win32Exception = System.ComponentModel.Win32Exception;
 
 public partial class MoveNotificationsApp : Application {
@@ -60,13 +62,7 @@ public partial class MoveNotificationsApp : Application {
         var targetBounds = bounds;
         targetBounds.X = targetScreenBounds.Right - targetBounds.Width - 2;
         targetBounds.Y = targetScreenBounds.Y + 2;
-        if (!User32.MoveWindow(actionCenter.Handle, (int)targetBounds.X, (int)targetBounds.Y,
-                                  (int)targetBounds.Width, (int)targetBounds.Height, true)) {
-            var exception = new Win32Exception();
-            Debug.WriteLine(exception);
-            return false;
-        }
-        return true;
+        return Move(actionCenter, targetBounds);
     }
 
     static bool MoveNotificationWindow(Win32Window notification) {
@@ -79,7 +75,11 @@ public partial class MoveNotificationsApp : Application {
         var targetBounds = bounds;
         targetBounds.X = NotificationsPosition.X;
         targetBounds.Y = NotificationsPosition.Y;
-        if (!User32.MoveWindow(notification.Handle, (int)targetBounds.X, (int)targetBounds.Y,
+        return Move(notification, targetBounds);
+    }
+
+    static bool Move(Win32Window window, System.Drawing.RectangleF targetBounds) {
+        if (!User32.MoveWindow(window.Handle, (int)targetBounds.X, (int)targetBounds.Y,
                                   (int)targetBounds.Width, (int)targetBounds.Height, true)) {
             var exception = new Win32Exception();
             Debug.WriteLine(exception);
